@@ -31,15 +31,22 @@ WebUI.openBrowser('')
 
 WebUI.navigateToUrl('https://www.saucedemo.com/')
 
-WebUI.setText(findTestObject('saucedemo/Page_Swag Labs/input_Swag Labs_user-name'), username)
+//Login
+CustomKeywords.'login.Login'(username, password)
 
-WebUI.setText(findTestObject('saucedemo/Page_Swag Labs/input_Swag Labs_password'), password)
+//Verify item 'Sauce Labs Backpack is exist'
+productTitle = WebUI.getText(findTestObject('Object Repository/saucedemo/Product Page/div_Sauce Labs Backpack'))
 
-WebUI.check(findTestObject('saucedemo/Page_Swag Labs/input_Swag Labs_login-button'))
+WebUI.verifyMatch(productTitle, 'Sauce Labs Backpack', false)
 
-WebUI.click(findTestObject('saucedemo/Page_Swag Labs/div_Sauce Labs Backpack'))
+//Add to Cart
+WebUI.click(findTestObject('Object Repository/saucedemo/Product Page/button_Add to cart'))
 
-WebUI.delay(2)
+//Go to Cart Page
+WebUI.click(findTestObject('Object Repository/saucedemo/Product Page/a_Swag Labs_shopping_cart_link'))
+
+//Verify item 'Sauce Labs Backpack is exist in Cart Page'
+WebUI.verifyElementPresent(findTestObject('Object Repository/saucedemo/Cart Page/div_Sauce Labs Backpack'), 5, FailureHandling.STOP_ON_FAILURE)
 
 WebUI.closeBrowser()
 
